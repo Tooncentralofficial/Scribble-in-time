@@ -15,7 +15,7 @@ export default function Footer() {
                 Preserve Your<br />Legacy Today
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-gray-100 mb-4 sm:mb-6 lg:mb-8 leading-relaxed">
-                Whether it's your legacy, a loved one's journey, or a cultural treasure, we'll help you preserve it for generations to come.
+                Whether it&apos;s your legacy, a loved one&apos;s journey, or a cultural treasure, we&apos;ll help you preserve it for generations to come.
               </p>
               <button className="bg-white text-gray-900 px-4 sm:px-6 lg:px-8 py-2 sm:py-2 lg:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors">
                 See Packages

@@ -10,14 +10,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
+      {/* Navigation
       <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="text-white font-bold text-xl">
               <img src="/logo.png" alt="Logo" width={100} height={100} />
             </div>
-            {/* Desktop Navigation */}
+            
             <div className="hidden md:flex items-center space-x-8">
               <a href="#" className="text-white hover:text-gray-200 transition-colors">Service</a>
               <a href="/how-it-works" className="text-white hover:text-gray-200 transition-colors">How it works</a>
@@ -29,7 +29,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+            
             <button
               className="md:hidden text-white p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -40,7 +40,7 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Mobile Navigation Menu */}
+        
           {isMobileMenuOpen && (
             <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
               <div className="flex flex-col space-y-4">
@@ -56,7 +56,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <section className="relative h-[1024px] flex items-center overflow-hidden">
@@ -135,7 +135,7 @@ export default function Home() {
                 </div>
                 <div className="bg-white rounded-lg p-3 shadow-sm">
                   <p className="text-sm text-gray-800">
-                    Hi there! I'm here to help you preserve your memories. What story would you like to tell today?
+                    Hi there! I&apos;m here to help you preserve your memories. What story would you like to tell today?
                   </p>
                 </div>
               </div>
@@ -154,7 +154,7 @@ export default function Home() {
                 </div>
                 <div className="bg-white rounded-lg p-3 shadow-sm">
                   <p className="text-sm text-gray-800">
-                    I'd love to help you organize your family photos! I can help you:
+                    I&apos;d love to help you organize your family photos! I can help you:
                   </p>
                   <ul className="text-sm text-gray-800 mt-2 space-y-1">
                     <li>• Sort photos by date and events</li>
@@ -302,7 +302,7 @@ export default function Home() {
           {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-6">
-              Here's How Your Story Comes To Life
+              Here&apos;s How Your Story Comes To Life
             </h2>
             <p className="text-lg text-gray-600 max-w-4xl mx-auto">
               Over 500 customers across different states in nigeria understand the need to scribble experience and trust us. Try us!
@@ -369,7 +369,7 @@ export default function Home() {
                       Writer Match
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      At this stage, we introduce you to our writers and suggest the ones that can bring your story to vivid life. Alternatively, you can also select writers from our writer's catalog.
+                      At this stage, we introduce you to our writers and suggest the ones that can bring your story to vivid life. Alternatively, you can also select writers from our writer&apos;s catalog.
                     </p>
                   </div>
                 </div>
@@ -435,7 +435,7 @@ export default function Home() {
               Choose a Plan That Tells Your Story
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Every story is unique, and so is our process. Let's understand your needs and create something unforgettable together
+              Every story is unique, and so is our process. Let&apos;s understand your needs and create something unforgettable together
             </p>
           </div>
 

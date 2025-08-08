@@ -8,16 +8,16 @@ export default function AboutUs() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
+     
+      {/* <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+          
             <div className="flex items-center">
               <img src="/logo.png" alt="Logo" width={100} height={100} />
             </div>
 
-            {/* Desktop Navigation Links */}
+            
             <div className="hidden md:flex items-center space-x-8">
               <a href="/" className="text-white hover:text-gray-200 transition-colors">Service</a>
               <a href="/how-it-works" className="text-white hover:text-gray-200 transition-colors">How it works</a>
@@ -29,7 +29,7 @@ export default function AboutUs() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+            
             <button
               className="md:hidden text-white p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -40,7 +40,7 @@ export default function AboutUs() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
+        
           {isMobileMenuOpen && (
             <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
               <div className="flex flex-col space-y-4">
@@ -56,7 +56,7 @@ export default function AboutUs() {
             </div>
           )}
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <section className="relative h-[548px] flex items-center overflow-hidden">
@@ -135,7 +135,7 @@ export default function AboutUs() {
             {/* First Story Paragraph */}
             <div className="mb-12">
               <p className="text-lg text-gray-700 leading-relaxed text-center max-w-5xl mx-auto">
-                My father was a man of many stories—and he told them as effortlessly as one breathes. He told us of the sagas of the cunning tortoise, of how spirits came to the market to trade with humans, and how spiriting used canine eye rheum to gain the ability to see spirits. But his stories transcended the fantastical. Daddy told us stories of the civil war, of the upheaval it brought to his calm pre-teenage life. Of how his mother, unsure of what to take before fleeing to the village for safety, had opted to take their biggest mortar because survival meant nothing without sustenance. He told us of how he, adolescent eyes blinded by the valor of war, had tried to join the army, only to be scolded and chased home by the soldiers. Of how his father returned many months after being sent to the battlefield, unable to speak, shuddering at unseen and unknown terrors. More than being a storyteller, my dad's life was a beautiful story I will always cherish.
+                My father was a man of many stories—and he told them as effortlessly as one breathes. He told us of the sagas of the cunning tortoise, of how spirits came to the market to trade with humans, and how spiriting used canine eye rheum to gain the ability to see spirits. But his stories transcended the fantastical. Daddy told us stories of the civil war, of the upheaval it brought to his calm pre-teenage life. Of how his mother, unsure of what to take before fleeing to the village for safety, had opted to take their biggest mortar because survival meant nothing without sustenance. He told us of how he, adolescent eyes blinded by the valor of war, had tried to join the army, only to be scolded and chased home by the soldiers. Of how his father returned many months after being sent to the battlefield, unable to speak, shuddering at unseen and unknown terrors. More than being a storyteller, my dad&apos;s life was a beautiful story I will always cherish.
               </p>
             </div>
 
@@ -153,7 +153,7 @@ export default function AboutUs() {
               {/* Right Text */}
               <div className="space-y-6">
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  My father was a man of many stories and he told them as effortlessly as one breathes. He told us of the sagas of the cunning tortoise, of how spirits came to the market to trade with humans, and how spiriting used canine eye rheum to gain the ability to see spirits. But his stories transcended the fantastical. Daddy told us stories of the civil war, of the upheaval it brought to his calm pre-teenage life. Of how his mother, unsure of what to take before fleeing to the village for safety, had opted to take their biggest mortar because survival meant nothing without sustenance. He told us of how he, adolescent eyes blinded by the valor of war, had tried to join the army, only to be scolded and chased home by the soldiers. Of how his father returned many months after being sent to the battlefield, unable to speak, shuddering at unseen and unknown terrors. More than being a storyteller, my dad's life was a beautiful story I will always cherish.
+                  My father was a man of many stories and he told them as effortlessly as one breathes. He told us of the sagas of the cunning tortoise, of how spirits came to the market to trade with humans, and how spiriting used canine eye rheum to gain the ability to see spirits. But his stories transcended the fantastical. Daddy told us stories of the civil war, of the upheaval it brought to his calm pre-teenage life. Of how his mother, unsure of what to take before fleeing to the village for safety, had opted to take their biggest mortar because survival meant nothing without sustenance. He told us of how he, adolescent eyes blinded by the valor of war, had tried to join the army, only to be scolded and chased home by the soldiers. Of how his father returned many months after being sent to the battlefield, unable to speak, shuddering at unseen and unknown terrors. More than being a storyteller, my dad&apos;s life was a beautiful story I will always cherish.
                 </p>
               </div>
             </div>
@@ -161,11 +161,11 @@ export default function AboutUs() {
             {/* Additional Story Paragraphs */}
             <div className="space-y-8 max-w-5xl mx-auto">
               <p className="text-lg text-gray-700 leading-relaxed">
-                Parent-child relationships can be complicated and fraught with tension. Yes, love lives there, but there are also unmet expectations, misunderstandings, and phantoms of arguments past that haunt the present. However, we all get to an age where we begin to understand our parents of the same gender and empathize with the person they have become. My father got to know his father in early adulthood. Daddy told me that he had the quintessential first talk he loved his father and was determined to learn everything he could about his father's past. They had many conversations to this effect, conversations that shaped and refined my father. My grandfather had a very eccentric personality. He made a living selling provisions and cooking utensils, trades that were often reserved for women back then. And in his eccentricity, he always left the important things for last. In his last days, he had so much to tell my father, but their conversation, Grandpa broke into a fit of nerve-wracking coughs. Unable to see his father in so much pain, Dad pleaded with him to rest for a while before continuing.
+                Parent-child relationships can be complicated and fraught with tension. Yes, love lives there, but there are also unmet expectations, misunderstandings, and phantoms of arguments past that haunt the present. However, we all get to an age where we begin to understand our parents of the same gender and empathize with the person they have become. My father got to know his father in early adulthood. Daddy told me that he had the quintessential first talk he loved his father and was determined to learn everything he could about his father&apos;s past. They had many conversations to this effect, conversations that shaped and refined my father. My grandfather had a very eccentric personality. He made a living selling provisions and cooking utensils, trades that were often reserved for women back then. And in his eccentricity, he always left the important things for last. In his last days, he had so much to tell my father, but their conversation, Grandpa broke into a fit of nerve-wracking coughs. Unable to see his father in so much pain, Dad pleaded with him to rest for a while before continuing.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed">
-                Grandpa refused, but Dad was adamant. In this battle between two stubborn men, the younger had won. "It's important," Grandpa insisted. "You need to hear it." "I know, but we have time. You're not going anywhere. Rest for a while. We'll continue." Dad left to bring him some water. When he returned, Grandpa was gone. I heard this story often as a child. It was Dad's biggest regret. Concern won, and the price was regret. "I wish I had stayed. I wish I had let him speak. I wish I had written what he had to say." It pained him that Grandpa died with the secret still weighing on his heart.
+                Grandpa refused, but Dad was adamant. In this battle between two stubborn men, the younger had won. &quot;It&apos;s important,&quot; Grandpa insisted. &quot;You need to hear it.&quot; &quot;I know, but we have time. You&apos;re not going anywhere. Rest for a while. We&apos;ll continue.&quot; Dad left to bring him some water. When he returned, Grandpa was gone. I heard this story often as a child. It was Dad&apos;s biggest regret. Concern won, and the price was regret. &quot;I wish I had stayed. I wish I had let him speak. I wish I had written what he had to say.&quot; It pained him that Grandpa died with the secret still weighing on his heart.
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed">

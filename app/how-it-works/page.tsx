@@ -160,15 +160,15 @@ export default function HowItWorks() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
+      {/* <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+          
             <div className="flex items-center">
               <img src="/logo.png" alt="Logo" width={100} height={100} />
             </div>
 
-            {/* Desktop Navigation Links */}
+           
             <div className="hidden md:flex items-center space-x-8">
               <a href="/" className="text-white hover:text-gray-200 transition-colors">Service</a>
               <a href="/how-it-works" className="text-white font-semibold">How it works</a>
@@ -180,7 +180,7 @@ export default function HowItWorks() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+           
             <button
               className="md:hidden text-white p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -191,7 +191,7 @@ export default function HowItWorks() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
+        
           {isMobileMenuOpen && (
             <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
               <div className="flex flex-col space-y-4">
@@ -207,7 +207,7 @@ export default function HowItWorks() {
             </div>
           )}
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <section
@@ -223,7 +223,7 @@ export default function HowItWorks() {
         {/* Content */}
         <div className="text-center px-4 sm:px-6 max-w-4xl mx-auto">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
-            Here's How Your Story Comes To Life
+            Here&apos;s How Your Story Comes To Life
           </h1>
           <p className="text-lg sm:text-xl text-white max-w-3xl mx-auto">
             Over 500+ customers across different states in Nigeria understand the
