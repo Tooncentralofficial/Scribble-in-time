@@ -1,15 +1,13 @@
 export default function Footer() {
   return (
     <footer className="relative">
-      {/* Hero Section with Background Image - Positioned to overlap */}
-      <div className="relative -mb-[100px] sm:-mb-[140px] lg:-mb-[185px] z-10">
-        <div className="relative bg-cover bg-center bg-no-repeat h-[350px] sm:h-[450px] lg:h-[616px] w-full" style={{
-          backgroundImage: "url('/footer.jpg')"
-        }}>
-          {/* Light overlay for better text readability on larger screens only */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 sm:bg-opacity-20"></div>
-
-          <div className="relative container mx-auto px-4 sm:px-6 h-full flex items-center">
+      {/* Hero Section with Background Image - Positioned to overlap navbar */}
+      <div className="relative -mb-[250px] sm:-mb-[315px] lg:-mb-[430px] -mt-[320px] sm:-mt-[385px] lg:-mt-[500px] z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="bg-cover bg-center bg-no-repeat h-[350px] sm:h-[450px] lg:h-[616px] rounded-lg flex items-center" style={{
+            backgroundImage: "url('/footer.jpg')"
+          }}>
+            <div className="px-6 sm:px-8 lg:px-12">
             <div className="max-w-2xl">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 leading-tight">
                 Preserve Your<br />Legacy Today
@@ -26,7 +24,7 @@ export default function Footer() {
       </div>
 
       {/* Footer Links Section - Dark Background */}
-      <div className="bg-gray-900 pt-[250px] sm:pt-[310px] lg:pt-[431px]">
+      <div className="bg-gray-900 pt-[120px] sm:pt-[140px] lg:pt-[190px]">
         <div className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
           {/* Footer Links */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
@@ -113,6 +111,7 @@ export default function Footer() {
             <p className="text-gray-400 text-xs sm:text-sm text-center leading-relaxed px-4">
               © Copyright 2025. All Rights Reserved by A Scribble in Time
             </p>
+            </div>
           </div>
         </div>
       </div>
