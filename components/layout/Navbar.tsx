@@ -1,10 +1,17 @@
+"use client";
 import { Logo } from '@/assets'
 import { Navitems } from '@/constants'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { usePathname } from 'next/navigation';
 
 function Navbar() {
+  // get current page route
+  const diffentFoorer=["/howitworks","abaoutpage"]
+  const pathname = usePathname()
+  console.log(pathname)
+  const showFooter = diffentFoorer.includes(pathname)
   return (
     <div className="navbar">
       <div>
