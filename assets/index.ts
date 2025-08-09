@@ -1,6 +1,7 @@
 export { default as Logo } from './Scribblelogo.svg';
 export {default as TickIcon} from './tick.svg'
 export {default as FooterLogo} from './footerlogo.svg'
+export {default as BlackLogo} from './blackLogo.svg'
 
 
 // social icon

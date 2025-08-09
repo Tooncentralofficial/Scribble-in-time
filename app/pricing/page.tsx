@@ -37,7 +37,7 @@ function page() {
       </div>
       <PriceSection />
 
-      <div className="absolute w-[80%] h-[70vh] bottom-110 left-[10%] z-[0] ">
+      {/* <div className="absolute w-[80%] h-[70vh] bottom-110 left-[10%] z-[0] ">
         <Image
           src={footerimg.src}
           alt="footerimg"
@@ -67,7 +67,7 @@ function page() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
