@@ -5,15 +5,16 @@ export default function Footer() {
   return (
     <footer className="relative">
       {/* Hero Section with Background Image - Positioned to overlap navbar */}
-      <div className="relative -mb-[250px] sm:-mb-[315px] lg:-mb-[430px] -mt-[320px] sm:-mt-[385px] lg:-mt-[500px] z-10">
-        <div className="container mx-auto px-4 sm:px-6">
+      <div className="relative -mb-[40%] mt-12 sm:mt-16 lg:mt-20 z-10 w-full">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div
-            className="bg-cover bg-center bg-no-repeat h-[350px] sm:h-[450px] lg:h-[616px] rounded-lg flex items-center"
+            className="bg-cover bg-center bg-no-repeat h-[300px] sm:h-[400px] lg:h-[500px] rounded-lg shadow-xl flex items-center"
             style={{
               backgroundImage: "url('/footer.jpg')",
+              backgroundPosition: 'center 40%',
             }}
           >
-            <div className="px-6 sm:px-8 lg:px-12">
+            <div className="container mx-auto px-4 sm:px-6">
               <div className="max-w-2xl">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 lg:mb-6 leading-tight">
                   Preserve Your
@@ -25,7 +26,7 @@ export default function Footer() {
                   a cultural treasure, we&apos;ll help you preserve it for
                   generations to come.
                 </p>
-                <button className="bg-white text-gray-900 px-4 sm:px-6 lg:px-8 py-2 sm:py-2 lg:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors">
+                <button className="bg-white text-gray-900 px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors">
                   See Packages
                 </button>
               </div>
