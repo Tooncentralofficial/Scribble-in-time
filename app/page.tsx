@@ -1,15 +1,20 @@
 'use client';
 
 import Image from "next/image";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
-import { sendMessage } from '../lib/api';
 
 interface Message {
   id: string;
   content: string;
   isUser: boolean;
   timestamp: Date;
+  source?: 'user' | 'ai' | 'admin' | 'system';
+  metadata?: {
+    conversation_id?: string;
+    status?: string;
+    [key: string]: any;
+  };
 }
 
 export default function Home() {
@@ -25,43 +30,79 @@ export default function Home() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Initialize chat with a welcome message
+  const [userId] = useState(() => {
+    // Generate a unique user ID if not exists
+    let id = localStorage.getItem('userId');
+    if (!id) {
+      id = `user_${Date.now()}`;
+      localStorage.setItem('userId', id);
+    }
+    return id;
+  });
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
       content: inputValue,
       isUser: true,
-      timestamp: new Date()
+      timestamp: new Date(),
+      source: 'user'
     };
 
-    // Add user message to chat
+    // Add user message to chat immediately
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
     try {
-      const data = await sendMessage(inputValue);
-      
-      const botMessage: Message = {
-        id: Date.now().toString(),
-        content: data.response || "I'm sorry, I couldn't process your request at the moment.",
-        isUser: false,
-        timestamp: new Date()
-      };
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: inputValue })
+      });
 
-      setMessages(prev => [...prev, botMessage]);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to get AI response');
+      }
+
+      const data = await response.json();
+      
+      if (data.response) {
+        const botMessage: Message = {
+          id: `ai_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+          content: data.response,
+          isUser: false,
+          timestamp: new Date(),
+          source: 'ai',
+          metadata: {
+            conversation_id: data.conversation_id,
+            status: data.conversation_status
+          }
+        };
+        setMessages(prev => [...prev, botMessage]);
+      }
+      
     } catch (error) {
       console.error('Error sending message:', error);
-      // Show error message to user
       const errorMessage: Message = {
-        id: Date.now().toString(),
-        content: "Sorry, I'm having trouble connecting to the server. Please try again later.",
+        id: `sys_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+        content: "We're having trouble connecting to our services. Please try again later.",
         isUser: false,
-        timestamp: new Date()
+        timestamp: new Date(),
+        source: 'system'
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -69,11 +110,11 @@ export default function Home() {
     }
   };
 
-  const handleQuickAction = async (action: string) => {
+  const handleQuickAction = (action: string) => {
     setInputValue(action);
     // Simulate form submission
     const event = { preventDefault: () => {} } as React.FormEvent;
-    await handleSendMessage(event);
+    handleSendMessage(event);
   };
 
   return (
@@ -129,8 +170,17 @@ export default function Home() {
             {/* Header */}
             <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold">AI</span>
+                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/images/ai-avatar.png" 
+                    alt="AI Assistant"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAxMmg2djJoLTZ6bS02IDJoLTJ2LTJoMnptLTIgNmgyMnYtMmgtMjJ6bTAtNGgxMHYtMmgtMTB6bTgtMTBoLTZ2LTJoNnptLTgtNGgxMHYtMmgtMTB6bS0xMiAwaDJ2LTRoLTJ6bTAgMTZoMTh2LTJoLTE4eiIvPjwvc3ZnPg==';
+                    }}
+                  />
                 </div>
                 <div>
                   <h3 className="font-semibold">Uche</h3>
@@ -148,27 +198,20 @@ export default function Home() {
             </div>
 
             {/* Chat Messages */}
-            <div className="p-4 space-y-4 h-80 overflow-y-auto bg-gray-50">
+            <div className="space-y-4 overflow-y-auto max-h-[400px] p-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex items-start space-x-3 ${
-                    message.isUser ? 'justify-end' : 'justify-start'
-                  }`}
+                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
-                  {!message.isUser && (
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">AI</span>
-                    </div>
-                  )}
                   <div
-                    className={`rounded-lg p-3 shadow-sm max-w-xs ${
+                    className={`max-w-[80%] p-3 rounded-lg ${
                       message.isUser
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-800'
+                        ? 'bg-blue-500 text-white rounded-br-none'
+                        : 'bg-gray-100 text-gray-800 rounded-bl-none'
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
                     <p className="text-xs mt-1 opacity-70">
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>

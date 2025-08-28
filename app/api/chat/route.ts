@@ -4,8 +4,12 @@ export async function POST(request: Request) {
   try {
     const { message } = await request.json();
     
-    // Call Django backend
-    const response = await fetch('http://127.0.0.1:8000/api/chat/', {
+    if (!message || typeof message !== 'string') {
+      throw new Error('Message is required');
+    }
+
+    // Call the AI API endpoint
+    const response = await fetch('http://localhost:8000/api/chat/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,20 +19,24 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('Django backend error:', errorData);
-      throw new Error(`Django backend responded with status ${response.status}: ${errorData}`);
+      console.error('AI API error:', errorData);
+      throw new Error(`AI API responded with status ${response.status}`);
     }
 
     const data = await response.json();
     
     return NextResponse.json({
-      response: data.response || data.message || 'No response content',
-      session_id: data.session_id || Date.now().toString(),
+      response: data.response,
+      conversation_id: data.conversation_id,
+      conversation_status: data.conversation_status,
     });
   } catch (error) {
     console.error('Chat error:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to process chat message' },
+      { 
+        response: 'Sorry, I encountered an error processing your message. Please try again later.',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     );
   }
