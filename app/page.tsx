@@ -10,8 +10,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* Hero Section */}
       <section className="relative h-[1024px] flex items-center overflow-hidden">
         {/* Background Image */}
         <Image
