@@ -1,12 +1,121 @@
 'use client';
 
 import Image from "next/image";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
+
+interface Message {
+  id: string;
+  content: string;
+  isUser: boolean;
+  timestamp: Date;
+  source?: 'user' | 'ai' | 'admin' | 'system';
+  metadata?: {
+    conversation_id?: string;
+    status?: string;
+    [key: string]: any;
+  };
+}
 
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      content: "Hi there! I'm Uche, your AI assistant. How can I help you today?",
+      isUser: false,
+      timestamp: new Date()
+    }
+  ]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Initialize chat with a welcome message
+  const [userId] = useState(() => {
+    // Generate a unique user ID if not exists
+    let id = localStorage.getItem('userId');
+    if (!id) {
+      id = `user_${Date.now()}`;
+      localStorage.setItem('userId', id);
+    }
+    return id;
+  });
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      content: inputValue,
+      isUser: true,
+      timestamp: new Date(),
+      source: 'user'
+    };
+
+    // Add user message to chat immediately
+    setMessages(prev => [...prev, userMessage]);
+    setInputValue('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: inputValue })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to get AI response');
+      }
+
+      const data = await response.json();
+      
+      if (data.response) {
+        const botMessage: Message = {
+          id: `ai_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+          content: data.response,
+          isUser: false,
+          timestamp: new Date(),
+          source: 'ai',
+          metadata: {
+            conversation_id: data.conversation_id,
+            status: data.conversation_status
+          }
+        };
+        setMessages(prev => [...prev, botMessage]);
+      }
+      
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorMessage: Message = {
+        id: `sys_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+        content: "We're having trouble connecting to our services. Please try again later.",
+        isUser: false,
+        timestamp: new Date(),
+        source: 'system'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleQuickAction = (action: string) => {
+    setInputValue(action);
+    // Simulate form submission
+    const event = { preventDefault: () => {} } as React.FormEvent;
+    handleSendMessage(event);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -41,7 +150,7 @@ export default function Home() {
         </div>
 
         {/* Chat Icon - Positioned at the right border of hero section */}
-        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-50">
+        <div className="fixed right-6 bottom-24 z-50">
           <button
             onClick={() => setIsChatOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-l-2xl shadow-lg transition-all duration-300 hover:scale-105"
@@ -59,11 +168,20 @@ export default function Home() {
             {/* Header */}
             <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold">AI</span>
+                <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/images/ai-avatar.png" 
+                    alt="AI Assistant"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAxMmg2djJoLTZ6bS02IDJoLTJ2LTJoMnptLTIgNmgyMnYtMmgtMjJ6bTAtNGgxMHYtMmgtMTB6bTgtMTBoLTZ2LTJoNnptLTgtNGgxMHYtMmgtMTB6bS0xMiAwaDJ2LTRoLTJ6bTAgMTZoMTh2LTJoLTE4eiIvPjwvc3ZnPg==';
+                    }}
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Scribble AI Assistant</h3>
+                  <h3 className="font-semibold">Uche</h3>
                   <p className="text-xs text-blue-100">Online now</p>
                 </div>
               </div>
@@ -78,76 +196,97 @@ export default function Home() {
             </div>
 
             {/* Chat Messages */}
-            <div className="p-4 space-y-4 h-80 overflow-y-auto bg-gray-50">
-              {/* AI Message */}
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-xs font-bold">AI</span>
+            <div className="space-y-4 overflow-y-auto max-h-[400px] p-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.isUser
+                        ? 'bg-blue-500 text-white rounded-br-none'
+                        : 'bg-gray-100 text-gray-800 rounded-bl-none'
+                    }`}
+                  >
+                    <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                    <p className="text-xs mt-1 opacity-70">
+                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  </div>
+                  {message.isUser && (
+                    <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-gray-600 text-xs font-bold">You</span>
+                    </div>
+                  )}
                 </div>
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <p className="text-sm text-gray-800">
-                    Hi there! I&apos;m here to help you preserve your memories. What story would you like to tell today?
-                  </p>
+              ))}
+              {isLoading && (
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">AI</span>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* User Message */}
-              <div className="flex justify-end">
-                <div className="bg-blue-600 text-white rounded-lg p-3 max-w-xs">
-                  <p className="text-sm">Help me organize my family photos</p>
+              {/* Quick Action Buttons - Only show when no user messages yet */}
+              {messages.length <= 1 && (
+                <div className="space-y-2 mt-4">
+                  <button 
+                    onClick={() => handleQuickAction('Help me organize my family photos')}
+                    className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left"
+                  >
+                    Help me organize my family photos
+                  </button>
+                  <button 
+                    onClick={() => handleQuickAction('What is Scribble in Time?')}
+                    className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left"
+                  >
+                    What is Scribble in Time?
+                  </button>
+                  <button 
+                    onClick={() => handleQuickAction('How should I organize a family story?')}
+                    className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left"
+                  >
+                    How should I organize a family story?
+                  </button>
                 </div>
-              </div>
-
-              {/* AI Response */}
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-xs font-bold">AI</span>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <p className="text-sm text-gray-800">
-                    I&apos;d love to help you organize your family photos! I can help you:
-                  </p>
-                  <ul className="text-sm text-gray-800 mt-2 space-y-1">
-                    <li>• Sort photos by date and events</li>
-                    <li>• Create themed albums</li>
-                    <li>• Generate story timelines</li>
-                    <li>• Add captions and context</li>
-                  </ul>
-                  <p className="text-sm text-gray-800 mt-2">
-                    Would you like to start by uploading some photos?
-                  </p>
-                </div>
-              </div>
-
-              {/* Quick Action Buttons */}
-              <div className="space-y-2">
-                <button className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left">
-                  Help me organize my family photos
-                </button>
-                <button className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left">
-                  What is Scribble in Time?
-                </button>
-                <button className="w-full bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg hover:bg-blue-200 transition-colors text-left">
-                  How should I organize a family story?
-                </button>
-              </div>
+              )}
             </div>
 
             {/* Input Area */}
-            <div className="p-4 border-t bg-white">
+            <form onSubmit={handleSendMessage} className="p-4 border-t bg-white">
               <div className="flex items-center space-x-2">
                 <input
                   type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your message..."
                   className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={isLoading}
                 />
-                <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
+                <button 
+                  type="submit"
+                  disabled={!inputValue.trim() || isLoading}
+                  className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  )}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -158,7 +297,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From storytelling to translation, our services are designed to honor your voice and vision.
+              From story telling to translation, our services are designed to honor your voice and vision.
             </p>
           </div>
 
@@ -167,7 +306,7 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
               {/* Service 1 - Audio Storytelling (Featured) */}
               <div className="bg-blue-600 text-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mb-6">
+                <div className="w-16 h-16  bg-opacity-20 rounded-lg flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3Z"/>
                     <path d="M19 10v1a7 7 0 0 1-14 0v-1a1 1 0 0 1 2 0v1a5 5 0 0 0 10 0v-1a1 1 0 1 1 2 0Z"/>
