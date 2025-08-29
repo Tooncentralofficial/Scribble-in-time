@@ -1,5 +1,4 @@
 'use client';
-
 import Image from "next/image";
 import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
@@ -13,7 +12,7 @@ interface Message {
   metadata?: {
     conversation_id?: string;
     status?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -33,7 +32,7 @@ export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Initialize chat with a welcome message
+
   const [userId] = useState(() => {
     // Generate a unique user ID if not exists
     let id = localStorage.getItem('userId');
