@@ -12,7 +12,7 @@ interface Message {
   metadata?: {
     conversation_id?: string;
     status?: string;
-    [key: string]: unknown;
+    [key: string]: string | undefined;
   };
 }
 
