@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from "next/image";
 import Footer from '../../components/Footer';
 
 export default function AboutUs() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-white">
       
@@ -50,9 +49,11 @@ export default function AboutUs() {
               {/* Bottom Image - Discussion */}
               <div className="mt-8">
                 <div className="rounded-2xl overflow-hidden shadow-lg">
-                  <img
+                  <Image
                     src="/disscussion.jpg"
                     alt="Conversation between storyteller and client"
+                    width={800}
+                    height={320}
                     className="w-full h-80 object-cover object-top"
                   />
                 </div>
@@ -62,9 +63,11 @@ export default function AboutUs() {
             {/* Large Right Image */}
             <div className="lg:pl-8">
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src="/meeting.jpg"
                   alt="Professional writer working on stories"
+                  width={800}
+                  height={600}
                   className="w-full h-[500px] lg:h-[600px] object-cover"
                 />
               </div>
@@ -94,9 +97,11 @@ export default function AboutUs() {
             <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
               {/* Left Image */}
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src="oldman.jpg"
                   alt="Elderly man with traditional African clothing"
+                  width={800}
+                  height={384}
                   className="w-full h-96 object-cover"
                 />
               </div>

@@ -18,7 +18,6 @@ interface Message {
 
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -29,19 +28,8 @@ export default function Home() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-
-  const [userId] = useState(() => {
-    // Generate a unique user ID if not exists
-    let id = localStorage.getItem('userId');
-    if (!id) {
-      id = `user_${Date.now()}`;
-      localStorage.setItem('userId', id);
-    }
-    return id;
-  });
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -168,9 +156,11 @@ export default function Home() {
             <div className="bg-blue-600 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center overflow-hidden">
-                  <img 
+                  <Image 
                     src="/images/ai-avatar.png" 
                     alt="AI Assistant"
+                    width={32}
+                    height={32}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -321,7 +311,7 @@ export default function Home() {
               {/* Service 2 - Personalized Story Writing */}
               <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
-                  <img src="/pencil-line.svg" alt="Pencil icon" className="w-8 h-8" />
+                  <Image src="/pencil-line.svg" alt="Pencil icon" width={32} height={32} className="w-8 h-8" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Personalized Story Writing</h3>
                 <p className="text-gray-600 text-sm">
@@ -353,7 +343,7 @@ export default function Home() {
               {/* Service 4 - Story Mixing */}
               <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
-                  <img src="/file-search.svg" alt="File search icon" className="w-8 h-8" />
+                  <Image src="/file-search.svg" alt="File search icon" width={32} height={32} className="w-8 h-8" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Story Mixing</h3>
                 <p className="text-gray-600 text-sm">
@@ -424,9 +414,11 @@ export default function Home() {
                 </div>
                 <div className="lg:pl-16">
                   <div className="rounded-2xl overflow-hidden shadow-lg">
-                    <img
+                    <Image
                       src="/threepersons.jpg"
                       alt="Meeting and greeting with clients"
+                      width={800}
+                      height={320}
                       className="w-full h-80 object-cover"
                     />
                   </div>
@@ -439,9 +431,11 @@ export default function Home() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div className="lg:pr-16 order-2 lg:order-1">
                   <div className="rounded-2xl overflow-hidden shadow-lg">
-                    <img
+                    <Image
                       src="/black.jpg"
                       alt="Writer working on story"
+                      width={800}
+                      height={320}
                       className="w-full h-80 object-cover"
                     />
                   </div>
@@ -493,9 +487,11 @@ export default function Home() {
               {/* Bottom Image - Discussion */}
               <div className="mt-8">
                 <div className="rounded-2xl overflow-hidden shadow-lg">
-                  <img
+                  <Image
                     src="/disscussion.jpg"
                     alt="Conversation between storyteller and client"
+                    width={800}
+                    height={320}
                     className="w-full h-80 object-cover object-top"
                   />
                 </div>
@@ -505,9 +501,11 @@ export default function Home() {
             {/* Large Right Image */}
             <div className="lg:pl-8">
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src="/meeting.jpg"
                   alt="Professional writer working on stories"
+                  width={800}
+                  height={600}
                   className="w-full h-[500px] lg:h-[600px] object-cover"
                 />
               </div>

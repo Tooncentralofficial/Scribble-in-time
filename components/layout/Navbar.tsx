@@ -3,7 +3,6 @@ import { BlackLogo, Logo } from '@/assets'
 import { Navitems } from '@/constants'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Button } from '../ui/button'
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -12,10 +11,8 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // get current page route
-  const diffentFoorer = ["/howitworks", "abaoutpage"]
   const pathname = usePathname()
   console.log(pathname)
-  const showFooter = diffentFoorer.includes(pathname)
   const showBlack = pathname === "/contact"
 
   return (

@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import pricingimg from "@/public/images/pricingimg.jpg";
-import footerimg from "@/public/images/footerimg.jpg";
-import PriceCard from "./_components/PriceCard";
-import { packages } from "@/constants";
 import PriceSection from "./_components/PriceSection";
 function page() {
   return (

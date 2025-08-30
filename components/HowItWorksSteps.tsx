@@ -52,9 +52,11 @@ const StepSection: React.FC<StepProps> = ({
 
         {/* Image */}
         <div className={`${isReversed ? 'lg:col-start-1' : ''}`}>
-          <img 
+          <Image 
             src={imageUrl}
             alt={imageAlt}
+            width={800}
+            height={400}
             className="w-full h-96 object-cover rounded-lg"
           />
         </div>

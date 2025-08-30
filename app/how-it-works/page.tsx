@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import Footer from '../../components/Footer';
 
 interface StepProps {
@@ -49,9 +50,11 @@ const StepSection: React.FC<StepProps> = ({
           <div className="lg:hidden">
             {/* Image */}
             <div className="mb-6 sm:mb-8">
-              <img
+              <Image
                 src={imageUrl}
                 alt={imageAlt}
+                width={800}
+                height={320}
                 className="w-full h-48 sm:h-64 md:h-80 object-cover rounded-lg shadow-lg"
               />
             </div>
@@ -95,9 +98,11 @@ const StepSection: React.FC<StepProps> = ({
 
                 {/* Image - Right Side */}
                 <div className="col-span-6">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={imageAlt}
+                    width={800}
+                    height={320}
                     className="w-full h-80 object-cover rounded-lg"
                   />
                 </div>
@@ -106,9 +111,11 @@ const StepSection: React.FC<StepProps> = ({
               <>
                 {/* Image - Left Side */}
                 <div className="col-span-6">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={imageAlt}
+                    width={800}
+                    height={320}
                     className="w-full h-80 object-cover rounded-lg"
                   />
                 </div>
@@ -155,8 +162,6 @@ const StepSection: React.FC<StepProps> = ({
 };
 
 export default function HowItWorks() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-white">
      
