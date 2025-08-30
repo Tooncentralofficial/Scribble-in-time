@@ -157,7 +157,7 @@ export default function Home() {
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center overflow-hidden">
                   <Image 
-                    src="/images/ai-avatar.png" 
+                    src="/ai.jpg" 
                     alt="AI Assistant"
                     width={32}
                     height={32}
@@ -203,17 +203,33 @@ export default function Home() {
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                   </div>
-                  {message.isUser && (
+                  {message.isUser ? (
                     <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-gray-600 text-xs font-bold">You</span>
+                    </div>
+                  ) : (
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      <Image 
+                        src="/ai.jpg" 
+                        alt="AI Assistant"
+                        width={32}
+                        height={32}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   )}
                 </div>
               ))}
               {isLoading && (
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs font-bold">AI</span>
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <Image 
+                      src="/ai.jpg" 
+                      alt="AI Assistant"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="bg-white rounded-lg p-3 shadow-sm">
                     <div className="flex space-x-1">

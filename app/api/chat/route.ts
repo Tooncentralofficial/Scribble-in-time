@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     }
 
     // Call the AI API endpoint
-    const response = await fetch('http://localhost:8000/api/chat/', {
+    const response = await fetch('https://scribble-in-time-backend-production.up.railway.app/api/chat/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
