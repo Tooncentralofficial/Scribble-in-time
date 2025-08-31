@@ -2,10 +2,6 @@ import { FacebookIcon, InstagramIcon, LinkedinIcon, Xicon } from "@/assets";
 
 export const Navitems= [
   {
-    name: 'Service',
-    href: '',
-  },
-  {
     name: 'How it works',
     href: 'how-it-works',
   },

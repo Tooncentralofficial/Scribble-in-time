@@ -52,25 +52,27 @@ function Navbar() {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
-          <div className="flex flex-col space-y-4">
+        <div className="md:hidden mt-4 bg-black bg-opacity-95 rounded-lg p-6 shadow-2xl">
+          <div className="flex flex-col space-y-6">
             {Navitems.map((item, index) => (
               <Link 
-                href={`/${item.href}`} 
+                href={item.href ? `/${item.href}` : '#'} 
                 key={index}
-                className="text-white hover:text-gray-200 transition-colors py-2"
+                className="text-white hover:text-blue-300 transition-colors py-3 text-lg font-medium border-b border-gray-700 last:border-b-0"
                 onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
               >
-                {item.name}{" "}
+                {item.name}
               </Link>
             ))}
-            <Link 
-              href="/contact"
-              className="bg-[#1D4ED7] text-white px-6 py-3 rounded-lg hover:bg-[#1D4ED7]/80 transition-colors mt-4 text-center"
-              onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
-            >
-              Get started
-            </Link>
+            <div className="pt-4 border-t border-gray-700">
+              <Link 
+                href="/contact"
+                className="bg-[#1D4ED7] text-white px-6 py-4 rounded-lg hover:bg-[#1D4ED7]/80 transition-colors text-center block font-semibold"
+                onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+              >
+                Get started
+              </Link>
+            </div>
           </div>
         </div>
       )}
