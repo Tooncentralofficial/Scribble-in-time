@@ -122,7 +122,7 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4 sm:px-6">
           <div className="max-w-2xl">
             {/* Left Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 mt-80 md:mt-0">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white drop-shadow-2xl">
                 Preserve your story in a
                 <br />

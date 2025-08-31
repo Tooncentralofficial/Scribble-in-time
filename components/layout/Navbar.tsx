@@ -41,7 +41,7 @@ function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white p-2"
+          className={cn("md:hidden text-white p-2", showBlack && "text-black")}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,25 +52,69 @@ function Navbar() {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 bg-black bg-opacity-95 rounded-lg p-6 shadow-2xl">
-          <div className="flex flex-col space-y-6">
-            {Navitems.map((item, index) => (
-              <Link 
-                href={item.href ? `/${item.href}` : '#'} 
-                key={index}
-                className="text-white hover:text-blue-300 transition-colors py-3 text-lg font-medium border-b border-gray-700 last:border-b-0"
-                onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Menu Content - Positioned as a modal */}
+          <div className="absolute top-16 left-4 right-4 bg-[#4F46E5] rounded-lg shadow-2xl max-w-sm mx-auto">
+            {/* Header with Logo and Close Button */}
+            <div className="flex items-center justify-between p-4 border-b border-blue-400">
+              <div>
+                <Logo width={100} height={60} />
+              </div>
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-white p-1"
               >
-                {item.name}
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex flex-col p-4 space-y-4">
+              {/* Services - First item as shown in Figma */}
+              <Link
+                href="#"
+                className="text-white text-lg font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Services
               </Link>
-            ))}
-            <div className="pt-4 border-t border-gray-700">
-              <Link 
-                href="/contact"
-                className="bg-[#1D4ED7] text-white px-6 py-4 rounded-lg hover:bg-[#1D4ED7]/80 transition-colors text-center block font-semibold"
-                onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
+              
+              {/* How it works */}
+              <Link
+                href="/how-it-works"
+                className="text-white text-lg font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                Get started
+                How it works
+              </Link>
+              
+              {/* About Us */}
+              <Link
+                href="/about-us"
+                className="text-white text-lg font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About Us
+              </Link>
+              
+              {/* FAQs */}
+              <Link
+                href="/faq"
+                className="text-white text-lg font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                FAQs
+              </Link>
+              
+              {/* Pricing */}
+              <Link
+                href="/pricing"
+                className="text-white text-lg font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Pricing
               </Link>
             </div>
           </div>
