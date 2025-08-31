@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
 
@@ -129,9 +130,9 @@ export default function Home() {
                 <br />
                 forget
               </h1>
-              <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg">
+              <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg inline-block">
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -478,9 +479,9 @@ export default function Home() {
 
           {/* CTA Button */}
           <div className="text-center mt-16">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors">
+            <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors inline-block">
               Start Your Story
-            </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from "next/image";
+import Link from "next/link";
 import Footer from '../../components/Footer';
 
 export default function AboutUs() {
@@ -143,9 +144,9 @@ export default function AboutUs() {
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Join hundreds of families who have trusted us to preserve their most precious memories and stories for future generations.
           </p>
-          <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors">
+          <Link href="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors inline-block">
             Get Started Today
-          </button>
+          </Link>
         </div>
       </section>
 

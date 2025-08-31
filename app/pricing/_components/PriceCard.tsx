@@ -52,6 +52,24 @@ function PriceCard({ packageName, features , index ,selectedPackage, setSelected
       </div>
 
       <button
+        onClick={() => {
+          const subject = encodeURIComponent(`Inquiry about ${packageName} Package - A Scribble in Time`);
+          const body = encodeURIComponent(`Hello,
+
+I'm interested in learning more about the ${packageName} package from A Scribble in Time.
+
+Package Details:
+${packageName} Package includes:
+${features.map(feature => `• ${feature}`).join('\n')}
+
+I would like to schedule a free discovery call to discuss my story and how we can work together.
+
+Best regards,
+[Your Name]`);
+          
+          const mailtoLink = `mailto:contact.ascribbleintime@gmail.com?subject=${subject}&body=${body}`;
+          window.open(mailtoLink, '_blank');
+        }}
         className={cn(
           "w-full h-[4.25rem] bg-[#1D4ED7] text-white text-lg font-bold transition-all duration-500 cursor-pointer ",
           selectedPackage === index

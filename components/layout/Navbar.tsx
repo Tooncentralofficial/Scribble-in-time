@@ -35,9 +35,9 @@ function Navbar() {
         </div>
 
         {/* Desktop Get Started Button */}
-        <button className="hidden md:block rounded-[0px] py-[1.1rem] px-[1.5rem] bg-[#1D4ED7] text-white cursor-pointer hover:bg-[#1D4ED7]/80 transition-all duration-300">
+        <Link href="/contact" className="hidden md:block rounded-[0px] py-[1.1rem] px-[1.5rem] bg-[#1D4ED7] text-white cursor-pointer hover:bg-[#1D4ED7]/80 transition-all duration-300">
           Get started{" "}
-        </button>
+        </Link>
 
         {/* Mobile Menu Button */}
         <button
@@ -64,12 +64,13 @@ function Navbar() {
                 {item.name}{" "}
               </Link>
             ))}
-            <button 
-              className="bg-[#1D4ED7] text-white px-6 py-3 rounded-lg hover:bg-[#1D4ED7]/80 transition-colors mt-4"
+            <Link 
+              href="/contact"
+              className="bg-[#1D4ED7] text-white px-6 py-3 rounded-lg hover:bg-[#1D4ED7]/80 transition-colors mt-4 text-center"
               onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
             >
               Get started
-            </button>
+            </Link>
           </div>
         </div>
       )}
