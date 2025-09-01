@@ -72,49 +72,24 @@ function Navbar() {
 
             {/* Menu Items */}
             <div className="flex flex-col p-4 space-y-4">
-              {/* Services - First item as shown in Figma */}
-              <Link
-                href="#"
-                className="text-white text-lg font-medium py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Services
-              </Link>
+              {Navitems.map((item, index) => (
+                <Link
+                  key={index}
+                  href={`/${item.href}`}
+                  className="text-white text-lg font-medium py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
               
-              {/* How it works */}
+              {/* Get Started Button for Mobile */}
               <Link
-                href="/how-it-works"
-                className="text-white text-lg font-medium py-2"
+                href="/contact"
+                className="mt-4 rounded-[0px] py-[1.1rem] px-[1.5rem] bg-white text-[#4F46E5] text-center font-medium cursor-pointer hover:bg-gray-100 transition-all duration-300"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                How it works
-              </Link>
-              
-              {/* About Us */}
-              <Link
-                href="/about-us"
-                className="text-white text-lg font-medium py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About Us
-              </Link>
-              
-              {/* FAQs */}
-              <Link
-                href="/faq"
-                className="text-white text-lg font-medium py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                FAQs
-              </Link>
-              
-              {/* Pricing */}
-              <Link
-                href="/pricing"
-                className="text-white text-lg font-medium py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Pricing
+                Get started
               </Link>
             </div>
           </div>

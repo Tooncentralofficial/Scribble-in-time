@@ -99,7 +99,7 @@ export default function AboutUs() {
               {/* Left Image */}
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <Image
-                  src="oldman.jpg"
+                  src="/oldman.jpg"
                   alt="Elderly man with traditional African clothing"
                   width={800}
                   height={384}
