@@ -45,6 +45,7 @@ function FaqPage() {
             <AccordionItem
               key={index}
               value={`item-${index}`}
+              id={`item-${index}`}
               className="bg-white rounded-md  px-4  border-none"
             >
               <AccordionTrigger className="text-left py-4 font-semibold text-black data-[state=open]:text-primary">

@@ -28,7 +28,7 @@ function Navbar() {
         {/* Desktop Navigation */}
         <div className={cn("hidden md:flex items-center gap-[1.12rem] text-white" ,showBlack && "text-black")}>
           {Navitems.map((item, index) => (
-            <Link href={`/${item.href}`} key={index}>
+            <Link href={item.href.startsWith('/#') ? item.href : `/${item.href}`} key={index}>
               {item.name}{" "}
             </Link>
           ))}
@@ -75,7 +75,7 @@ function Navbar() {
               {Navitems.map((item, index) => (
                 <Link
                   key={index}
-                  href={`/${item.href}`}
+                  href={item.href.startsWith('/#') ? item.href : `/${item.href}`}
                   className="text-white text-lg font-medium py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

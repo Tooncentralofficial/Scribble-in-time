@@ -3,6 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from 'react';
 import Footer from '../components/Footer';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { faqData } from '@/constants';
 
 interface Message {
   id: string;
@@ -113,8 +120,14 @@ export default function Home() {
           src="/hero.jpg"
           alt="Hero background"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
+          quality={95}
+          sizes="100vw"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
         />
 
 
@@ -298,7 +311,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="services" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
@@ -385,9 +398,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            <a
+              href="mailto:"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block"
+            >
               Learn More
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -497,9 +513,9 @@ export default function Home() {
               <p className="text-lg text-gray-600 leading-relaxed">
                 Our goal at A Scribble in Time is to curate the life stories of Africans, thus creating a cultural repository for the families of our customers and the community at large. Many beautiful personal stories, histories, and anecdotes die uncelebrated as important witnesses and custodians never get to share them with a global audience.
               </p>
-              <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors">
+              <Link href="/about-us" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors inline-block">
                 Discover our Story
-              </button>
+              </Link>
 
               {/* Bottom Image - Discussion */}
               <div className="mt-8">
@@ -600,7 +616,33 @@ export default function Home() {
                 </li>
               </ul>
 
-              <button className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors">
+              <button
+                onClick={() => {
+                  const subject = encodeURIComponent(`Inquiry about Silver Package - A Scribble in Time`);
+                  const body = encodeURIComponent(`Hello,
+
+I'm interested in learning more about the Silver package from A Scribble in Time.
+
+Package Details:
+Silver Package includes:
+• 3 full color paperback books and a digital copy of your book
+• 55-60 pages (10,000 words)
+• 6 month production schedule
+• 10 hours of interviews and translation service (if required)
+• Dedicated editorial sessions
+• Design and type setting with a choice of dozens of interior and cover combinations
+• Reviews
+
+I would like to schedule a free discovery call to discuss my story and how we can work together.
+
+Best regards,
+[Your Name]`);
+                  
+                  const mailtoLink = `mailto:contact.ascribbleintime@gmail.com?subject=${subject}&body=${body}`;
+                  window.open(mailtoLink, '_blank');
+                }}
+                className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
+              >
                 Start With A Free Discovery Call
               </button>
             </div>
@@ -661,7 +703,33 @@ export default function Home() {
                 </li>
               </ul>
 
-              <button className="w-full bg-white text-blue-600 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+              <button
+                onClick={() => {
+                  const subject = encodeURIComponent(`Inquiry about Gold Package - A Scribble in Time`);
+                  const body = encodeURIComponent(`Hello,
+
+I'm interested in learning more about the Gold package from A Scribble in Time.
+
+Package Details:
+Gold Package includes:
+• 3 full color paperback books, one hardback book and a digital copy of your book
+• 90-105 pages (15,000 words)
+• 6 month production schedule
+• 15 hours of interviews and translation service (if required)
+• Dedicated editorial sessions
+• Design and type setting with a choice of dozens of interior and cover combinations
+• Reviews
+
+I would like to schedule a free discovery call to discuss my story and how we can work together.
+
+Best regards,
+[Your Name]`);
+                  
+                  const mailtoLink = `mailto:contact.ascribbleintime@gmail.com?subject=${subject}&body=${body}`;
+                  window.open(mailtoLink, '_blank');
+                }}
+                className="w-full bg-white text-blue-600 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
+              >
                 Start With A Free Discovery Call
               </button>
             </div>
@@ -669,9 +737,9 @@ export default function Home() {
 
           {/* See More Packages Button */}
           <div className="text-center">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors">
+            <Link href="/pricing" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors inline-block">
               See More Packages
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -686,92 +754,30 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            {/* FAQ Item 1 - Expanded */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  What is A Scribble in Time
-                </h3>
-                <svg className="w-5 h-5 text-gray-500 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div className="px-6 pb-6">
-                <p className="text-gray-600 leading-relaxed">
-                  Our goal at A Scribble in Time is to curate the life stories of Africans, thus creating a cultural repository for the
-                  families of our customers and the community at large. Many beautiful personal stories, histories, and anecdotes
-                  die uncelebrated as important witnesses and custodians never get to share them with a global audience.
-                </p>
-              </div>
-            </div>
-
-            {/* FAQ Item 2 - Collapsed */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Why should I choose A Scribble in Time?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* FAQ Item 3 - Collapsed */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  How does the process work?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* FAQ Item 4 - Collapsed */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  How long does it take to complete the process?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* FAQ Item 5 - Collapsed */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Who writes my work?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* FAQ Item 6 - Collapsed */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <button className="w-full text-left p-6 flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Can I have a chat directly with the writers?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="multiple" className="w-full space-y-4">
+              {faqData.slice(0, 6).map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 px-6"
+                >
+                  <AccordionTrigger className="text-left py-6 font-semibold text-gray-800 text-lg hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 pb-6 leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
 
           {/* See All Questions Button */}
           <div className="text-center mt-12">
-            <button className="text-black-600 font-semibold text-lg hover:text-blue-700 transition-colors underline">
+            <Link href="/faq" className="text-black-600 font-semibold text-lg hover:text-blue-700 transition-colors underline">
               See All Questions
-            </button>
+            </Link>
           </div>
         </div>
       </section>

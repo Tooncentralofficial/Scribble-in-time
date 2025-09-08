@@ -26,9 +26,9 @@ export default function Footer() {
                   a cultural treasure, we&apos;ll help you preserve it for
                   generations to come.
                 </p>
-                <button className="bg-white text-gray-900 px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors">
+                <Link href="/pricing" className="bg-white text-gray-900 px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors inline-block">
                   See Packages
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -141,28 +141,28 @@ export default function Footer() {
                 </h4>
                 <ul className="space-y-3 sm:space-y-2 text-gray-300 text-sm">
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/pricing"
                       className="hover:text-white transition-colors block py-1"
                     >
                       Packages
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/how-it-works"
                       className="hover:text-white transition-colors block py-1"
                     >
                       How it works
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/contact"
                       className="hover:text-white transition-colors block py-1"
                     >
                       Contact
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -182,12 +182,12 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
+                    <Link
+                      href="/faq"
                       className="hover:text-white transition-colors block py-1"
                     >
                       FAQs
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <Link
