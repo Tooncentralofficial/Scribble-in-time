@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Applayout from "@/components/layout/Applayout";
 
+const OgUrl = `https://www.ascribbleintime.com/logo.png`;
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,14 +28,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo.png' },
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+      { url: OgUrl },
+      { url: OgUrl, sizes: '32x32', type: 'image/png' },
+      { url: OgUrl, sizes: '16x16', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
+    shortcut: OgUrl,
     apple: [
-      { url: '/logo.png' },
-      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+      { url: OgUrl },
+      { url: OgUrl, sizes: '180x180', type: 'image/png' },
     ],
   },
   manifest: '/site.webmanifest',
