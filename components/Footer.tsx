@@ -137,7 +137,7 @@ export default function Footer() {
               {/* About Links */}
               <div className="text-center sm:text-left">
                 <h4 className="text-white font-semibold mb-4 text-base">
-                  About
+                  Touchpoints
                 </h4>
                 <ul className="space-y-3 sm:space-y-2 text-gray-300 text-sm">
                   <li>

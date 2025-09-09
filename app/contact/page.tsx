@@ -12,7 +12,6 @@ interface MemoirFormData {
   email: string;
   phone_number: string;
   gender: string;
-  theme: string;
   subject: string;
   main_themes: string;
   key_life_events: string;
@@ -26,7 +25,6 @@ function ContactPage() {
     email: '',
     phone_number: '',
     gender: '',
-    theme: '',
     subject: '',
     main_themes: '',
     key_life_events: '',
@@ -73,7 +71,6 @@ function ContactPage() {
           email: '',
           phone_number: '',
           gender: '',
-          theme: '',
           subject: '',
           main_themes: '',
           key_life_events: '',
@@ -175,35 +172,20 @@ function ContactPage() {
                 className="border-[1px] border-[#817F82]"
               />
             </div>
-            <aside className="flex gap-3 flex-col">
+            <div className="flex flex-col gap-3">
               <label htmlFor="gender">Gender</label>
-              <div className="grid grid-cols-2 gap-5">
-                <div>
-                  <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
-                    <SelectTrigger className="w-full border-[1px] border-[#817F82]">
-                      <SelectValue placeholder="Select Gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                      <SelectItem value="prefer_not_to_say">Prefer not to say</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Input
-                    type="text"
-                    placeholder="Theme of your memoir"
-                    id="theme"
-                    value={formData.theme}
-                    onChange={(e) => handleInputChange('theme', e.target.value)}
-                    required
-                    className="border-[1px] border-[#817F82]"
-                  />
-                </div>
-              </div>
-            </aside>
+              <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
+                <SelectTrigger className="w-full border-[1px] border-[#817F82]">
+                  <SelectValue placeholder="Select Gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="prefer_not_to_say">Prefer not to say</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             <div className="flex flex-col gap-3">
               <label htmlFor="subject">Subject of the Memoir</label>
               <Input
