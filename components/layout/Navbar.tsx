@@ -1,7 +1,7 @@
 "use client";
-import { BlackLogo, Logo } from '@/assets'
 import { Navitems } from '@/constants'
 import Link from 'next/link'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -20,9 +20,14 @@ function Navbar() {
       <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div>
-          {
-            showBlack ? <BlackLogo width={124} height={77} fill="black" /> : <Logo width={124} height={77} />
-          }
+          <Image
+            src="/logo.png"
+            alt="A Scribble in Time Logo"
+            width={124}
+            height={77}
+            className="object-contain"
+            priority
+          />
         </div>
 
         {/* Desktop Navigation */}
@@ -58,7 +63,13 @@ function Navbar() {
             {/* Header with Logo and Close Button */}
             <div className="flex items-center justify-between p-4 border-b border-blue-400">
               <div>
-                <Logo width={100} height={60} />
+                <Image
+                  src="/logo.png"
+                  alt="A Scribble in Time Logo"
+                  width={100}
+                  height={60}
+                  className="object-contain"
+                />
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
